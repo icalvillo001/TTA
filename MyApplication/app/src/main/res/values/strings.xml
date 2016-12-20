@@ -4,4 +4,7 @@
     <string name="user_edit">Introduce DNI</string>
     <string name="passwd_label">Contraseña</string>
     <string name="passwd_edit">Introduce contraseña</string>
+    <string name="menu_test">Nuevo test</string>
+    <string name="menu_ejercicio">Nuevo ejercicio</string>
+    <string name="menu_seg">Seguimiento</string>
 </resources>

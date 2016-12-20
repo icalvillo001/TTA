@@ -11,7 +11,8 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="2">
+        android:columnCount="2"
+        android:id="@+id/gridLayout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/passwd_edit"
+            android:inputType="textPassword"
             />
     </GridLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acceder"
+        android:layout_below="@+id/gridLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
