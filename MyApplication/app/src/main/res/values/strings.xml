@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Practica1</string>
+    <string name="user_label">Usuario</string>
+    <string name="user_edit">Introduce DNI</string>
+    <string name="passwd_label">Contraseña</string>
+    <string name="passwd_edit">Introduce contraseña</string>
 </resources>
