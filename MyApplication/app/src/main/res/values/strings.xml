@@ -7,4 +7,8 @@
     <string name="menu_test">Nuevo test</string>
     <string name="menu_ejercicio">Nuevo ejercicio</string>
     <string name="menu_seg">Seguimiento</string>
+    <string name="boton_subirFichero">Subir fichero</string>
+    <string name="boton_sacarFoto">Sacar foto</string>
+    <string name="boton_grabarAudio">Grabar audio</string>
+    <string name="boton_grabarVideo">Grabar video</string>
 </resources>
