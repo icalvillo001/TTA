@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +25,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public boolean authenticate(String login,String passwd){
-        //En este apartado se compararia el usuario introducido con los usuarios y contraseñas
-        //guardadas en una base de datos o en local. Como todavia no se ha implementado
-        //la funcion devuelve true. De esta forma, pasaran todos los usuarios.
-        return true;
+
+        int pos=0,a=0,i;
+
+        for(i=0;i<datos.usuario.length;i++){
+            if(login==datos.usuario[i]){
+                a=1;
+                pos=i;
+            }
+        }
+        if(a==1){
+            if(passwd==datos.passwd[pos]){
+                    Toast.makeText(
+                            this,
+                            "Acceso correcto",
+                            Toast.LENGTH_SHORT
+                    );
+                    return true;
+
+            }else{
+                Toast.makeText(
+                        this,
+                        "Acceso incorrecto",
+                        Toast.LENGTH_SHORT
+                );
+                return false;
+            }
+        }
+
+
     }
 
 }
