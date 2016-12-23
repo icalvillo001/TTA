@@ -17,7 +17,11 @@ import android.widget.Toast;
  * Created by root on 23/12/16.
  */
 
-public class TestActivity extends AppCompatActivity implements View.OnClickListener{
+public class TestActivity extends AppCompatActivity {
+
+    public static String[] choice={"Version de la aplicacion", "Listado de componentes de la aplicacion","Opciones del menu de ajustes","Opciones del menu de ajustes","Nivel minimo de la API android requerida","Nombre del paquete java de la aplicacion"};
+    public static String ayuda="The manifest describes the components of the application";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,24 +33,27 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             RadioButton radio =new RadioButton(this);
             radio.setId(i);
             radio.setText(datos.choice[i]);
-            radio.setOnClickListener(this);
+            radio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    findViewById(R.id.button_send_test).setVisibility(View.VISIBLE);
+                }
+            });
             group.addView(radio);
 
         }
     }
-    @Override
-    public void onClick(View v){
-        findViewById(R.id.button_send_test).setVisibility(View.VISIBLE);
-    }
 
-    //No me sale este metodo para ponerle en onclick en el boton de enviar ¿Por que?
-    public void send(View v, LinearLayout layout){
+
+    public void send(View v){
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
         int choices = group.getChildCount();
         for(int i=0;i<choices;i++)
             group.getChildAt(i).setEnabled(false);
-        //ese layout que es? Lo he definido con LinearLayout pero no estoy segura
+
+        LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
         layout.removeView(findViewById(R.id.button_send_test));
+
         group.getChildAt(2).setBackgroundColor(Color.GREEN);
         if( group.getCheckedRadioButtonId()==-1){
             Toast.makeText(this,

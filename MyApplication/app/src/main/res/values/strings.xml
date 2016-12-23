@@ -12,5 +12,5 @@
     <string name="boton_grabarAudio">Grabar audio</string>
     <string name="boton_grabarVideo">Grabar video</string>
     <string name="button_send_test">Enviar</string>
-    <string name="button_help">Enviar</string>
+    <string name="button_help">Ver ayuda</string>
 </resources>
