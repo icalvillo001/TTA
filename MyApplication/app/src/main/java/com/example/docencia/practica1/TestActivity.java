@@ -32,7 +32,7 @@ public class TestActivity extends AppCompatActivity {
         for(int i=0;i<5;i++){
             RadioButton radio =new RadioButton(this);
             radio.setId(i);
-            radio.setText(datos.choice[i]);
+            radio.setText(choice[i]);
             radio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -74,7 +74,7 @@ public class TestActivity extends AppCompatActivity {
     //No me sale este metodo para ponerle en onclick en el boton de ayuda. ¿Por que?
     public void help(View v){
         WebView w = new WebView(this);
-        w.loadData(datos.ayuda,"text/html",null);
+        w.loadData(ayuda,"text/html",null);
         w.setBackgroundColor(Color.TRANSPARENT);
         w.setLayerType(WebView.LAYER_TYPE_SOFTWARE,null);
 
