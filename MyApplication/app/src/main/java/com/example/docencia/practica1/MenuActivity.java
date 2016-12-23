@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
@@ -22,6 +23,10 @@ public class MenuActivity extends AppCompatActivity {
         TextView textLogin=(TextView)findViewById(R.id.menu_login);
         textLogin.setText(intent.getStringExtra(EXTRA_LOGIN));
 
+    }
+    public void test(View v){
+        Intent intent=new Intent(this,TestActivity.class);
+        startActivity(intent);
     }
 
 }
