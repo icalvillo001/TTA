@@ -72,12 +72,13 @@ public class TestActivity extends AppCompatActivity {
         }
     }
     //No me sale este metodo para ponerle en onclick en el boton de ayuda. ¿Por que?
-    public void help(View v, LinearLayout layout){
+    public void help(View v){
         WebView w = new WebView(this);
         w.loadData(datos.ayuda,"text/html",null);
         w.setBackgroundColor(Color.TRANSPARENT);
         w.setLayerType(WebView.LAYER_TYPE_SOFTWARE,null);
-        //ese layout que es? Lo he definido con LinearLayout pero no estoy segura
+
+        LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
         layout.addView(w);
 
     }
