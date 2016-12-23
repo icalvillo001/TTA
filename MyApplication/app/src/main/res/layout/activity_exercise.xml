@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.docencia.practica1.ExerciseActivity">
+
+    <TextView
+        android:id="@+id/exercise_wording"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/boton_subirFichero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_subirFichero"/>
+    <Button
+        android:id="@+id/boton_sacarFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_sacarFoto"/>
+    <Button
+        android:id="@+id/boton_grabarAudio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_grabarAudio"/>
+    <Button
+        android:id="@+id/boton_grabarVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_grabarVideo"/>
+
+</LinearLayout>
