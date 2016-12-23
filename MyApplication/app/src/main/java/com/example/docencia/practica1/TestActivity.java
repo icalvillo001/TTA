@@ -2,6 +2,7 @@ package com.example.docencia.practica1;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
@@ -71,7 +72,7 @@ public class TestActivity extends AppCompatActivity {
             }
         }
     }
-    //No me sale este metodo para ponerle en onclick en el boton de ayuda. ¿Por que?
+
     public void help(View v){
         WebView w = new WebView(this);
         w.loadData(ayuda,"text/html",null);
@@ -81,5 +82,24 @@ public class TestActivity extends AppCompatActivity {
         LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
         layout.addView(w);
 
+    }
+    //Añado el nuevo metodo que visualizara HTML
+    public void showHtml(String advise){
+
+        if(advise.substring(0,10).contains("://")){
+            //En caso de que el mensaje sea una url
+            Uri uri=Uri.parse(advise);
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent);
+        }else{
+            //En caso de que el mensaje este guardado
+            WebView w = new WebView(this);
+            w.loadData(ayuda,"text/html",null);
+            w.setBackgroundColor(Color.TRANSPARENT);
+            w.setLayerType(WebView.LAYER_TYPE_SOFTWARE,null);
+
+            LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
+            layout.addView(w);
+        }
     }
 }
