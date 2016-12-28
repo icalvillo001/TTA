@@ -6,13 +6,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+import android.widget.MediaController;
 
 /**
  * Created by root on 23/12/16.
@@ -21,7 +25,8 @@ import android.widget.Toast;
 public class TestActivity extends AppCompatActivity {
 
     public static String[] choice={"Version de la aplicacion", "Listado de componentes de la aplicacion","Opciones del menu de ajustes","Opciones del menu de ajustes","Nivel minimo de la API android requerida","Nombre del paquete java de la aplicacion"};
-    public static String ayuda="The manifest describes the components of the application";
+    public static String[] ayuda={"The manifest describes the components of the application","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
+    public static String[] type={"text/html","video","audio","video","audio","video"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,9 @@ public class TestActivity extends AppCompatActivity {
            int select= group.getCheckedRadioButtonId();
             if(select!=2){
                 group.getChildAt(select).setBackgroundColor(Color.RED);
-                findViewById(R.id.button_help).setVisibility(View.VISIBLE);
+                if(ayuda[select]!=null){
+                    findViewById(R.id.button_help).setVisibility(View.VISIBLE);
+                }
             }else{
                 Toast.makeText(this,
                         "Respuesta correcta",
@@ -73,7 +80,7 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    public void help(View v){
+ /*   public void help(View v){
         WebView w = new WebView(this);
         w.loadData(ayuda,"text/html",null);
         w.setBackgroundColor(Color.TRANSPARENT);
@@ -82,10 +89,26 @@ public class TestActivity extends AppCompatActivity {
         LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
         layout.addView(w);
 
-    }
-    //Añado el nuevo metodo que visualizara HTML
-    public void showHtml(String advise){
+    }*/
+    //Añado el nuevo metodo que visualizara la ayuda en funcion del tipo que sea
+    public void help(View v){
+        RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
+        int select= group.getCheckedRadioButtonId();
 
+       switch(type[select]) {
+           case "text/html":
+               showHtml(ayuda[select]);
+               break;
+           case "video":
+               showVideo(ayuda[select]);
+               break;
+           case "audio":
+               showAudio(ayuda[select]);
+               break;
+
+       }
+    }
+    public void showHtml(String advise){
         if(advise.substring(0,10).contains("://")){
             //En caso de que el mensaje sea una url
             Uri uri=Uri.parse(advise);
@@ -94,12 +117,42 @@ public class TestActivity extends AppCompatActivity {
         }else{
             //En caso de que el mensaje este guardado
             WebView w = new WebView(this);
-            w.loadData(ayuda,"text/html",null);
+            w.loadData(advise,"text/html",null);
             w.setBackgroundColor(Color.TRANSPARENT);
             w.setLayerType(WebView.LAYER_TYPE_SOFTWARE,null);
 
             LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
             layout.addView(w);
         }
+
+    }
+    public void showVideo(String advise){
+        VideoView video =new VideoView(this);
+        video.setVideoURI(Uri.parse(advise));
+        ViewGroup.LayoutParams params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        video.setLayoutParams(params);
+        MediaController mediacontroller = new MediaController(this) {
+            @Override
+            public void hide(){
+
+            }
+
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent event){
+                if(event.getKeyCode()==KeyEvent.KEYCODE_BACK)
+                    finish();
+                return super.dispatchKeyEvent(event);
+            }
+        };
+        mediacontroller.setAnchorView(video);
+        video.setMediaController(mediacontroller);
+
+        LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
+        layout.addView(video);
+    }
+
+    public void showAudio(String advise){
+
+
     }
 }
