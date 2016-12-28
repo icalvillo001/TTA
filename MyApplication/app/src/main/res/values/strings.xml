@@ -13,4 +13,7 @@
     <string name="boton_grabarVideo">Grabar video</string>
     <string name="button_send_test">Enviar</string>
     <string name="button_help">Ver ayuda</string>
+    <string name="no_camera">No hay camara</string>
+    <string name="no_app">No hay aplicacion de camara</string>
+    <string name="no_micro">No hay microfono</string>
 </resources>
