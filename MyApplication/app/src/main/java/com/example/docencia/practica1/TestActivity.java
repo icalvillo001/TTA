@@ -25,8 +25,8 @@ import android.widget.MediaController;
 public class TestActivity extends AppCompatActivity {
 
     public static String[] choice={"Version de la aplicacion", "Listado de componentes de la aplicacion","Opciones del menu de ajustes","Opciones del menu de ajustes","Nivel minimo de la API android requerida","Nombre del paquete java de la aplicacion"};
-    public static String[] ayuda={"The manifest describes the components of the application","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
-    public static String[] type={"text/html","video","audio","video","audio","video"};
+    public static String[] ayuda={"The manifest describes the components of the application","http://www.acercadehtml.com/manual-html/que-es-html.html4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
+    public static String[] type={"text/html","text/html","audio","video","audio","video"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

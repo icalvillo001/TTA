@@ -19,11 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/boton_sacarFoto"/>
+
     <Button
         android:id="@+id/boton_grabarAudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/boton_grabarAudio"/>
+        android:text="@string/boton_grabarAudio" />
     <Button
         android:id="@+id/boton_grabarVideo"
         android:layout_width="match_parent"
