@@ -18,6 +18,8 @@ import android.widget.Toast;
 import android.widget.VideoView;
 import android.widget.MediaController;
 
+import java.io.IOException;
+
 /**
  * Created by root on 23/12/16.
  */
@@ -25,8 +27,8 @@ import android.widget.MediaController;
 public class TestActivity extends AppCompatActivity {
 
     public static String[] choice={"Version de la aplicacion", "Listado de componentes de la aplicacion","Opciones del menu de ajustes","Opciones del menu de ajustes","Nivel minimo de la API android requerida","Nombre del paquete java de la aplicacion"};
-    public static String[] ayuda={"The manifest describes the components of the application","http://www.acercadehtml.com/manual-html/que-es-html.html4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
-    public static String[] type={"text/html","text/html","audio","video","audio","video"};
+    public static String[] ayuda={"The manifest describes the components of the application","http://www.acercadehtml.com/manual-html/que-es-html.html4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
+    public static String[] type={"text/html","text/html","audio","video","audio"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +154,16 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void showAudio(String advise){
+        View audio=new View(this);
 
+        AudioPlayer audioPlayer=new AudioPlayer(audio);
+        try {
+            audioPlayer.setAudioUri(Uri.parse(advise));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
+        layout.addView(audio);
 
     }
 }
