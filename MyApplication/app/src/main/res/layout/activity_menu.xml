@@ -29,7 +29,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/menu_ejercicio"/>
+        android:text="@string/menu_ejercicio"
+        android:onClick="exercise"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

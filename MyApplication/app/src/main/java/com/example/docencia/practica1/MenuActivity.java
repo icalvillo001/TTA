@@ -29,4 +29,9 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void exercise(View v){
+        Intent intent=new Intent(this,ExerciseActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -33,6 +33,7 @@ public class ExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exercise);
     }
 
+
     public void sendPicture(View view){
         if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
             Toast.makeText(this,R.string.no_camera,Toast.LENGTH_SHORT).show();
