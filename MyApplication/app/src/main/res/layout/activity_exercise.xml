@@ -18,17 +18,20 @@
         android:id="@+id/boton_sacarFoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/boton_sacarFoto"/>
+        android:text="@string/boton_sacarFoto"
+        android:onClick="sendPicture"/>
 
     <Button
         android:id="@+id/boton_grabarAudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/boton_grabarAudio" />
+        android:text="@string/boton_grabarAudio"
+        android:onClick="recordAudio"/>
     <Button
         android:id="@+id/boton_grabarVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/boton_grabarVideo"/>
+        android:text="@string/boton_grabarVideo"
+        android:onClick="recordVideo"/>
 
 </LinearLayout>
