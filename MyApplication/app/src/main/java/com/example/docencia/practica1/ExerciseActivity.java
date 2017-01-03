@@ -88,14 +88,22 @@ public class ExerciseActivity extends AppCompatActivity {
         intent.setType("*/*");
         startActivityForResult(intent,READ_REQUEST_CODE);
     }
- /*   @Override
+ /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode!= Activity.RESULT_OK)
             return;
         switch(requestCode){
+            case READ_REQUEST_CODE:
+                break;
+            case VIDEO_REQUEST_CODE:
+                break;
+            case AUDIO_REQUEST_CODE:
+                sendFile();
+                break;
             case PICTURE_REQUEST_CODE:
                 sendFile(pictureUri);
                 break;
+
         }
 
     }*/

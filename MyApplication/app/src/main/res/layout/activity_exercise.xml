@@ -13,7 +13,8 @@
         android:id="@+id/boton_subirFichero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/boton_subirFichero"/>
+        android:text="@string/boton_subirFichero"
+        android:onClick="sendFile"/>
     <Button
         android:id="@+id/boton_sacarFoto"
         android:layout_width="match_parent"
