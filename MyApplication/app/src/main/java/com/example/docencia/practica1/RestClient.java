@@ -125,7 +125,10 @@ public class RestClient {
     }
 
     public JSONObject getJSON(String path) throws  IOException, JSONException{
-        return new JSONObject(getString(path));
+        String dato;
+        dato=getString(path);
+
+        return new JSONObject(dato);
 
     }
 }

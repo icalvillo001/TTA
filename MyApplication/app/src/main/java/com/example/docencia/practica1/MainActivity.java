@@ -1,6 +1,7 @@
 package com.example.docencia.practica1;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,28 +29,61 @@ public class MainActivity extends AppCompatActivity {
     }
     public void login(View view) throws IOException, JSONException{
 
-        Intent intent=new Intent(this,MenuActivity.class);
-        String login=((EditText)findViewById(R.id.login)).getText().toString();
-        String passwd=((EditText)findViewById(R.id.passwd)).getText().toString();
+        //Intent intent=new Intent(this,MenuActivity.class);
+        final String login=((EditText)findViewById(R.id.login)).getText().toString();
+        final String passwd=((EditText)findViewById(R.id.passwd)).getText().toString();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run(){
+                    rest.setHttpBasicAuth(login,passwd);
+
+            }
+
+        }).start();
         Boolean entrar=false;
         entrar=authenticate(login,passwd);
         if(entrar==true){
-            User user=new User();
-            user=getDatosUsuario(login);
-            intent.putExtra(MenuActivity.EXTRA_LOGIN,user.getUser());
-            startActivity(intent);
+            User user;
+            getDatosUsuario(login);
+           // intent.putExtra(MenuActivity.EXTRA_LOGIN,user.getUser());
+
         }
     }
-    public User getDatosUsuario(final String login) throws IOException,JSONException{
+    public void getDatosUsuario(final String login) throws IOException,JSONException{
         final User user = new User();
-        new Thread(new Runnable() {
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    JSONObject json = rest.getJSON(String.format("getStatus?dni=%s", login));
+                    user.setUser(json.getString("user"));
+                }catch (IOException e){
+                    e.printStackTrace();
+                }catch (JSONException e1){
+                    e1.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                Intent intent=new Intent(MainActivity.this,MenuActivity.class);
+                intent.putExtra(MenuActivity.EXTRA_LOGIN,user.getUser());
+                startActivity(intent);
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
+
+       /* new Thread(new Runnable() {
 
             @Override
             public void run(){
                try{
                    JSONObject json=rest.getJSON(String.format("getStatus?dni=%s",login));
-
                    user.setUser(json.getString("user"));
+
 
                }catch (IOException e){
                    e.printStackTrace();
@@ -59,9 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            }).start();
-        return user;
-
+            }).start();*/
 
     }
     public boolean authenticate(String login,String passwd){
