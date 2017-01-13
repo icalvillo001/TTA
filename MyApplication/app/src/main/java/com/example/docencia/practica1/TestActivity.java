@@ -3,6 +3,7 @@ package com.example.docencia.practica1;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
@@ -33,6 +34,8 @@ public class TestActivity extends AppCompatActivity {
     public static String[] ayuda={"The manifest describes the components of the application","http://www.acercadehtml.com/manual-html/que-es-html.html4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
     public static String[] type={"text/html","text/html","audio","video","audio"};
 
+    RestClient rest = new RestClient("http://u017633.ehu.eus:28080/ServidorTta/rest/tta");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +58,36 @@ public class TestActivity extends AppCompatActivity {
 
         }
     }
-    /*public Exercise getExercise(int id) throws IOException,JSONException{
-        id=1;
-        JSONObject json = rest.getJSON(String.format("getExercise?id=%d",id));
+    public Exercise getExercise() throws IOException,JSONException{
+        final int id=1;
 
-    }*/
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try{
+                    JSONObject json = rest.getJSON(String.format("getExercise?id=%d",id));
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
+
+
+
+        Exercise ex=new Exercise();
+        return ex;
+    }
 
     public void send(View v){
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
@@ -90,16 +118,6 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
- /*   public void help(View v){
-        WebView w = new WebView(this);
-        w.loadData(ayuda,"text/html",null);
-        w.setBackgroundColor(Color.TRANSPARENT);
-        w.setLayerType(WebView.LAYER_TYPE_SOFTWARE,null);
-
-        LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
-        layout.addView(w);
-
-    }*/
     //Añado el nuevo metodo que visualizara la ayuda en funcion del tipo que sea
     public void help(View v){
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
