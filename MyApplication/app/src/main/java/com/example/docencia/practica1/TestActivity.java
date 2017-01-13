@@ -60,13 +60,16 @@ public class TestActivity extends AppCompatActivity {
     }
     public Exercise getExercise() throws IOException,JSONException{
         final int id=1;
-
+        final Test test=new Test();
         new AsyncTask<Void,Void,Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
                 try{
-                    JSONObject json = rest.getJSON(String.format("getExercise?id=%d",id));
+                    //Se solicita los datos del test al servidor
+                    JSONObject json = rest.getJSON(String.format("getTest?id=%d",id));
+                    //test.setWording(json.getString("wording"));
+                  //  test.setChoice(json.getString("choice"));
                 }catch (JSONException e){
                     e.printStackTrace();
                 }catch (IOException e){
