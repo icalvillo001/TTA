@@ -18,6 +18,9 @@ import android.widget.Toast;
 import android.widget.VideoView;
 import android.widget.MediaController;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 /**
@@ -34,6 +37,7 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        //Recoge los datos del servidor
 
         //Rellenar el radioGroup cuando se ejecuta.
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
@@ -51,7 +55,11 @@ public class TestActivity extends AppCompatActivity {
 
         }
     }
+    /*public Exercise getExercise(int id) throws IOException,JSONException{
+        id=1;
+        JSONObject json = rest.getJSON(String.format("getExercise?id=%d",id));
 
+    }*/
 
     public void send(View v){
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);

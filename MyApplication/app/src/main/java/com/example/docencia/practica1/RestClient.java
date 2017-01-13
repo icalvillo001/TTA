@@ -64,7 +64,6 @@ public class RestClient {
         try {
             conn=getConnection(path);
             BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
             //Por la API no funciona el try-with.
             //Defino un nuevo string para volcar ahi lo que se lee y cierro el br directamente
             String br1;
