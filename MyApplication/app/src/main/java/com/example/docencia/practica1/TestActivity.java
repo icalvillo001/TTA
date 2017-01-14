@@ -140,18 +140,15 @@ public class TestActivity extends AppCompatActivity {
         //group.getChildAt(2).setBackgroundColor(Color.GREEN);
        // group.getChildAt(test.getChoices().get().getCorrect());
         group.getChildAt(respuestaCorrecta).setBackgroundColor(Color.GREEN);
-
+        final int select= group.getCheckedRadioButtonId();
         if( group.getCheckedRadioButtonId()==-1){
             Toast.makeText(this,
                     "Selecciona una opcion",
                     Toast.LENGTH_SHORT);
         }else{
-           int select= group.getCheckedRadioButtonId();
+
             if(select!=respuestaCorrecta){
                 group.getChildAt(select).setBackgroundColor(Color.RED);
-               /* if(ayuda[select]!=null){
-                    findViewById(R.id.button_help).setVisibility(View.VISIBLE);
-                }*/
                 if(test.getChoices().get(select).getAdvise()!=null){
                     findViewById(R.id.button_help).setVisibility(View.VISIBLE);
                 }
@@ -161,6 +158,34 @@ public class TestActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT);
             }
         }
+        new AsyncTask<Void,Void,Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try{
+                    String login="12345678A";
+                    String passwd="tta";
+                    rest.setHttpBasicAuth(login,passwd);
+                    JSONObject json = rest.getJSON(String.format("getStatus?dni=%s", login));
+                    User user = new User();
+                    user.setId(json.getInt("id"));
+                    uploadChoice(user.getId(),test.getChoices().get(select).getId());
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                Toast.makeText(TestActivity.this,R.string.subir,Toast.LENGTH_SHORT).show();
+
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
     }
 
     //Añado el nuevo metodo que visualizara la ayuda en funcion del tipo que sea
@@ -238,5 +263,12 @@ public class TestActivity extends AppCompatActivity {
         LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
         layout.addView(audio);
 
+    }
+
+    public void uploadChoice(int userId, int choiceId) throws JSONException, IOException{
+        JSONObject json = new JSONObject();
+        json.put("userId",userId);
+        json.put("choiceId",choiceId);
+        rest.postJson(json,"postChoice");
     }
 }

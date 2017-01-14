@@ -16,4 +16,5 @@
     <string name="no_camera">No hay camara</string>
     <string name="no_app">No hay aplicacion de camara</string>
     <string name="no_micro">No hay microfono</string>
+    <string name="subir">Test subido</string>
 </resources>
