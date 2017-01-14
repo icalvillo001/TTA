@@ -4,12 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,13 +35,62 @@ public class ExerciseActivity extends AppCompatActivity {
 
     protected Uri pictureUri;
 
+    Exercise exercise = new Exercise();
+    RestClient rest = new RestClient("http://u017633.ehu.eus:28080/ServidorTta/rest/tta");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+
+        getExercise();
     }
 
+    public void getExercise(){
+        new AsyncTask<Void,Void,Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try{
+                    String login="12345678A";
+                    String passwd="tta";
+                    rest.setHttpBasicAuth(login,passwd);
+                    //Se solicita los datos del test al servidor
+                    JSONObject json = rest.getJSON(String.format("getExercise?id=%d",1));
+                    //Se coge el dato del enunciado
+                    exercise.setWording(json.getString("wording"));
 
+                    //Se coge las diferentes opciones y los datos necesarios
+                    JSONArray array = json.getJSONArray("lessonBean");
+                    for(int i=0;i<array.length();i++){
+                        JSONObject itemJSON = array.getJSONObject(i);
+                        Exercise.lessonBean lessonBean = new Exercise.lessonBean();
+                        lessonBean.setId(itemJSON.getInt("id"));
+                        lessonBean.setNumber(itemJSON.getInt("number"));
+                        lessonBean.setTitle(itemJSON.getString("title"));
+                        exercise.getLessonBeanList().add(lessonBean);
+
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+
+                //Se visualiza el enunciado del test
+                TextView text=(TextView)findViewById(R.id.exercise_wording);
+                text.setText(exercise.getWording());
+
+
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
+    }
     public void sendPicture(View view){
         if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
             Toast.makeText(this,R.string.no_camera,Toast.LENGTH_SHORT).show();

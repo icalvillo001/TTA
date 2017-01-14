@@ -46,7 +46,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         try{
-            getExercise();
+            getTest();
         }catch (IOException e)
         {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class TestActivity extends AppCompatActivity {
 
 
     }
-    public void getExercise() throws IOException,JSONException{
+    public void getTest() throws IOException,JSONException{
         final int id=1;
 
         new AsyncTask<Void,Void,Void>() {
