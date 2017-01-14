@@ -7,9 +7,10 @@
     tools:context="com.example.docencia.practica1.TestActivity">
 
     <TextView
+        android:id="@+id/enunciadoTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¿Cual de las siguientes opciones NO se indica en el fichero de manifiesto de la app?"/>
+        />
     <RadioGroup
         android:id="@+id/test_choices"
         android:layout_width="match_parent"

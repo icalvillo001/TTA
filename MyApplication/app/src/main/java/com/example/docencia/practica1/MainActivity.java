@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-
                 //Con los datos de usuario se hace la nueva actividad y se pasa el dato necesario
                 Intent intent=new Intent(MainActivity.this,MenuActivity.class);
                 intent.putExtra(MenuActivity.EXTRA_LOGIN,user.getUser());

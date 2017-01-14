@@ -19,10 +19,13 @@ import android.widget.Toast;
 import android.widget.VideoView;
 import android.widget.MediaController;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by root on 23/12/16.
@@ -42,7 +45,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         //Recoge los datos del servidor
 
-        //Rellenar el radioGroup cuando se ejecuta.
+       /* //Rellenar el radioGroup cuando se ejecuta.
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
         for(int i=0;i<5;i++){
             RadioButton radio =new RadioButton(this);
@@ -56,20 +59,43 @@ public class TestActivity extends AppCompatActivity {
             });
             group.addView(radio);
 
+        }*/
+        try{
+            getExercise();
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }catch (JSONException e){
+            e.printStackTrace();
         }
+
+
     }
-    public Exercise getExercise() throws IOException,JSONException{
+    public void getExercise() throws IOException,JSONException{
         final int id=1;
         final Test test=new Test();
         new AsyncTask<Void,Void,Void>() {
-
             @Override
             protected Void doInBackground(Void... voids) {
                 try{
+                    String login="12345678A";
+                    String passwd="tta";
+                    rest.setHttpBasicAuth(login,passwd);
                     //Se solicita los datos del test al servidor
                     JSONObject json = rest.getJSON(String.format("getTest?id=%d",id));
-                    //test.setWording(json.getString("wording"));
-                  //  test.setChoice(json.getString("choice"));
+                    //Se coge el dato del enunciado
+                    test.setWording(json.getString("wording"));
+                    //Se coge las diferentes opciones y los datos necesarios
+                    JSONArray array = json.getJSONArray("choices");
+                    for(int i=0;i<array.length();i++){
+                        JSONObject itemJSON = array.getJSONObject(i);
+                        Test.Choice choice = new Test.Choice();
+                        choice.setId(itemJSON.getInt("id"));
+                        choice.setAnswer(itemJSON.getString("answer"));
+                        choice.setCorrect(itemJSON.getBoolean("correct"));
+                        choice.setAdvise(itemJSON.optString("advise",null));
+                        test.getChoices().add(choice);
+                    }
                 }catch (JSONException e){
                     e.printStackTrace();
                 }catch (IOException e){
@@ -82,14 +108,31 @@ public class TestActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
 
+                //Se visualiza el enunciado del test
+                TextView text=(TextView)findViewById(R.id.enunciadoTest);
+                text.setText(test.getWording());
+
+                //Se visualizan las opciones del test
+                RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
+                for(int i=0;i<5;i++){
+                    RadioButton radio =new RadioButton(TestActivity.this);
+                    radio.setId(i);
+                    radio.setText(choice[i]);
+                   // radio.setText(test.getChoices().indexOf(i));
+                    radio.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            findViewById(R.id.button_send_test).setVisibility(View.VISIBLE);
+                        }
+                    });
+                    group.addView(radio);
+
+                }
+
                 super.onPostExecute(aVoid);
             }
         }.execute();
 
-
-
-        Exercise ex=new Exercise();
-        return ex;
     }
 
     public void send(View v){
