@@ -36,30 +36,15 @@ public class TestActivity extends AppCompatActivity {
     public static String[] choice={"Version de la aplicacion", "Listado de componentes de la aplicacion","Opciones del menu de ajustes","Opciones del menu de ajustes","Nivel minimo de la API android requerida","Nombre del paquete java de la aplicacion"};
     public static String[] ayuda={"The manifest describes the components of the application","http://www.acercadehtml.com/manual-html/que-es-html.html4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
     public static String[] type={"text/html","text/html","audio","video","audio"};
-
+    final Test test=new Test();
+    int respuestaCorrecta=0;
     RestClient rest = new RestClient("http://u017633.ehu.eus:28080/ServidorTta/rest/tta");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        //Recoge los datos del servidor
 
-       /* //Rellenar el radioGroup cuando se ejecuta.
-        RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
-        for(int i=0;i<5;i++){
-            RadioButton radio =new RadioButton(this);
-            radio.setId(i);
-            radio.setText(choice[i]);
-            radio.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    findViewById(R.id.button_send_test).setVisibility(View.VISIBLE);
-                }
-            });
-            group.addView(radio);
-
-        }*/
         try{
             getExercise();
         }catch (IOException e)
@@ -73,7 +58,7 @@ public class TestActivity extends AppCompatActivity {
     }
     public void getExercise() throws IOException,JSONException{
         final int id=1;
-        final Test test=new Test();
+
         new AsyncTask<Void,Void,Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -89,11 +74,16 @@ public class TestActivity extends AppCompatActivity {
                     JSONArray array = json.getJSONArray("choices");
                     for(int i=0;i<array.length();i++){
                         JSONObject itemJSON = array.getJSONObject(i);
+
                         Test.Choice choice = new Test.Choice();
+
                         choice.setId(itemJSON.getInt("id"));
                         choice.setAnswer(itemJSON.getString("answer"));
                         choice.setCorrect(itemJSON.getBoolean("correct"));
                         choice.setAdvise(itemJSON.optString("advise",null));
+
+
+
                         test.getChoices().add(choice);
                     }
                 }catch (JSONException e){
@@ -116,9 +106,11 @@ public class TestActivity extends AppCompatActivity {
                 RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
                 for(int i=0;i<5;i++){
                     RadioButton radio =new RadioButton(TestActivity.this);
-                    radio.setId(i);
-                    radio.setText(choice[i]);
-                   // radio.setText(test.getChoices().indexOf(i));
+                    radio.setId(test.getChoices().get(i).getId());
+                    radio.setText(test.getChoices().get(i).getAnswer());
+                    if(test.getChoices().get(i).getCorrect()==true){
+                        respuestaCorrecta=i;
+                    }
                     radio.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -136,6 +128,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void send(View v){
+
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
         int choices = group.getChildCount();
         for(int i=0;i<choices;i++)
@@ -144,16 +137,22 @@ public class TestActivity extends AppCompatActivity {
         LinearLayout layout=(LinearLayout)findViewById(R.id.layout);
         layout.removeView(findViewById(R.id.button_send_test));
 
-        group.getChildAt(2).setBackgroundColor(Color.GREEN);
+        //group.getChildAt(2).setBackgroundColor(Color.GREEN);
+       // group.getChildAt(test.getChoices().get().getCorrect());
+        group.getChildAt(respuestaCorrecta).setBackgroundColor(Color.GREEN);
+
         if( group.getCheckedRadioButtonId()==-1){
             Toast.makeText(this,
                     "Selecciona una opcion",
                     Toast.LENGTH_SHORT);
         }else{
            int select= group.getCheckedRadioButtonId();
-            if(select!=2){
+            if(select!=respuestaCorrecta){
                 group.getChildAt(select).setBackgroundColor(Color.RED);
-                if(ayuda[select]!=null){
+               /* if(ayuda[select]!=null){
+                    findViewById(R.id.button_help).setVisibility(View.VISIBLE);
+                }*/
+                if(test.getChoices().get(select).getAdvise()!=null){
                     findViewById(R.id.button_help).setVisibility(View.VISIBLE);
                 }
             }else{
@@ -166,18 +165,20 @@ public class TestActivity extends AppCompatActivity {
 
     //Añado el nuevo metodo que visualizara la ayuda en funcion del tipo que sea
     public void help(View v){
+
         RadioGroup group = (RadioGroup)findViewById(R.id.test_choices);
         int select= group.getCheckedRadioButtonId();
 
-       switch(type[select]) {
+       //switch(type[select])
+       switch (type[select]){
            case "text/html":
-               showHtml(ayuda[select]);
+               showHtml(test.getChoices().get(select).getAdvise());
                break;
            case "video":
-               showVideo(ayuda[select]);
+               showVideo(test.getChoices().get(select).getAdvise());
                break;
            case "audio":
-               showAudio(ayuda[select]);
+               showAudio(test.getChoices().get(select).getAdvise());
                break;
 
        }
