@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         final String login=((EditText)findViewById(R.id.login)).getText().toString();
         final String passwd=((EditText)findViewById(R.id.passwd)).getText().toString();
 
+        //guardarDatosLogin(login,passwd);
+
         //Se define un objeto user que cogera los datos del usuario
         final User user = new User();
 
@@ -67,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }.execute();
 
+    }
+    public void guardarDatosLogin(String login, String passwd){
+        Intent intent1 = new Intent(this,ExerciseActivity.class);
+        intent1.putExtra(ExerciseActivity.USUARIO,login);
+        intent1.putExtra(ExerciseActivity.PASSWORD,passwd);
     }
 
 }

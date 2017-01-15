@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +34,14 @@ public class ExerciseActivity extends AppCompatActivity {
     public static final int AUDIO_REQUEST_CODE=3;
     public static final int READ_REQUEST_CODE=4;
 
+    public final static String USUARIO= "com.example.docencia.nombreAuth";
+    public final static String PASSWORD = "com.example.docencia.passAuth";
+
     protected Uri pictureUri;
 
     Exercise exercise = new Exercise();
     RestClient rest = new RestClient("http://u017633.ehu.eus:28080/ServidorTta/rest/tta");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +56,10 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 try{
-                    String login="12345678A";
+                    String nom="12345678A";
                     String passwd="tta";
-                    rest.setHttpBasicAuth(login,passwd);
+                    //rest.setHttpBasicAuth(USUARIO,PASSWORD);
+                    rest.setHttpBasicAuth(nom,passwd);
                     //Se solicita los datos del test al servidor
                     JSONObject json = rest.getJSON(String.format("getExercise?id=%d",1));
                     //Se coge el dato del enunciado
