@@ -1,4 +1,4 @@
-package com.example.docencia.practica1;
+package com.example.docencia.practica1.model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +31,7 @@ public class Test{
         this.choices = choices;
     }
 
-    static class Choice{
+    public static class Choice{
 
         public int id;
         public String advise;
@@ -89,7 +89,7 @@ public class Test{
             this.resourceTypes = resourceTypes;
         }
 
-        static class resourceType{
+       public static class resourceType{
             int id;
             String description;
             String mime;

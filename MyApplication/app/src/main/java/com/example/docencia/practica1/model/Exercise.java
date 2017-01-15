@@ -1,4 +1,4 @@
-package com.example.docencia.practica1;
+package com.example.docencia.practica1.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class Exercise {
         this.lessonBeanList = lessonBeanList;
     }
 
-    static class lessonBean{
+    public static class lessonBean{
 
         int id;
         int number;

@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.example.docencia.practica1.model.User;
+import com.example.docencia.practica1.prof.common.RestClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;

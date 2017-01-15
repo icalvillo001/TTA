@@ -1,6 +1,5 @@
 package com.example.docencia.practica1;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -10,10 +9,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.docencia.practica1.model.Exercise;
+import com.example.docencia.practica1.prof.common.RestClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,7 +145,7 @@ public class ExerciseActivity extends AppCompatActivity {
         intent.setType("*/*");
         startActivityForResult(intent,READ_REQUEST_CODE);
     }
- /*  @Override
+/*   @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode!= Activity.RESULT_OK)
             return;

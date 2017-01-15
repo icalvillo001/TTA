@@ -1,4 +1,4 @@
-package com.example.docencia.practica1;
+package com.example.docencia.practica1.model;
 
 /**
  * Created by aitor on 13/01/17.
