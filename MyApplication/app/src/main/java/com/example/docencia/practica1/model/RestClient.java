@@ -1,4 +1,4 @@
-package com.example.docencia.practica1.prof.common;
+package com.example.docencia.practica1.model;
 
 import android.util.Base64;
 

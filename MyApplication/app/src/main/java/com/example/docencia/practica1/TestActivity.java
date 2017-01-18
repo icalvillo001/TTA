@@ -20,8 +20,7 @@ import android.widget.MediaController;
 
 import com.example.docencia.practica1.model.Test;
 import com.example.docencia.practica1.model.User;
-import com.example.docencia.practica1.prof.view.AudioPlayer;
-import com.example.docencia.practica1.prof.common.RestClient;
+import com.example.docencia.practica1.model.RestClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +37,9 @@ public class TestActivity extends AppCompatActivity {
     public static String[] choice={"Version de la aplicacion", "Listado de componentes de la aplicacion","Opciones del menu de ajustes","Opciones del menu de ajustes","Nivel minimo de la API android requerida","Nombre del paquete java de la aplicacion"};
     public static String[] ayuda={"The manifest describes the components of the application","http://www.acercadehtml.com/manual-html/que-es-html.html4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4","http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"};
     public static String[] type={"text/html","text/html","audio","video","audio"};
+
+    public final static String USUARIOT= "com.example.docencia.nombreAuthT";
+    public final static String PASSWORDT = "com.example.docencia.passAuthT";
     final Test test=new Test();
     int respuestaCorrecta=0;
     RestClient rest = new RestClient("http://u017633.ehu.eus:28080/ServidorTta/rest/tta");
@@ -65,9 +67,16 @@ public class TestActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 try{
-                    String login="12345678A";
+                    String nom="12345678A";
                     String passwd="tta";
-                    rest.setHttpBasicAuth(login,passwd);
+                    //String nom;
+                    //String passwd;
+                    //Bundle extras = getIntent().getExtras();
+                    //nom=extras.getString("nombre");
+                    //passwd=extras.getString("passwd");
+                   // rest.setHttpBasicAuth(login,passwd);
+                    rest.setHttpBasicAuth(nom,passwd);
+
                     //Se solicita los datos del test al servidor
                     JSONObject json = rest.getJSON(String.format("getTest?id=%d",id));
                     //Se coge el dato del enunciado

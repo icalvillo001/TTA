@@ -9,12 +9,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.docencia.practica1.model.Exercise;
-import com.example.docencia.practica1.prof.common.RestClient;
+import com.example.docencia.practica1.model.RestClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,8 +56,14 @@ public class ExerciseActivity extends AppCompatActivity {
             protected Void doInBackground(Void... voids) {
                 try{
                     String nom="12345678A";
+                    //String nom;
+                    //String passwd;
                     String passwd="tta";
-                    //rest.setHttpBasicAuth(USUARIO,PASSWORD);
+                  //  Bundle extras = getIntent().getExtras();
+                   // nom=extras.getString("nombre");
+                   // passwd=extras.getString("passwd");
+                    //Intent intent=getIntent();
+                    //rest.setHttpBasicAuth(intent.getStringExtra(USUARIO),intent.getStringExtra(PASSWORD));
                     rest.setHttpBasicAuth(nom,passwd);
                     //Se solicita los datos del test al servidor
                     JSONObject json = rest.getJSON(String.format("getExercise?id=%d",1));

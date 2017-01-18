@@ -1,4 +1,4 @@
-package com.example.docencia.practica1.prof.view;
+package com.example.docencia.practica1;
 
 
 import android.media.AudioManager;
